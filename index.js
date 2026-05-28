@@ -298,4 +298,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupFilter('courses-filters', 'courses-grid');
     setupFilter('awards-filters', 'awards-grid');
+
+    // Mobile Hamburger Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const iconSpan = menuToggle.querySelector('span');
+            if (iconSpan) {
+                iconSpan.innerText = navLinks.classList.contains('active') ? '✕' : '☰';
+            }
+        });
+
+        // Close menu when clicking on any section link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const iconSpan = menuToggle.querySelector('span');
+                if (iconSpan) {
+                    iconSpan.innerText = '☰';
+                }
+            });
+        });
+    }
 });
