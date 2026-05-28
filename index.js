@@ -5,15 +5,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const savedTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', savedTheme);
-    // Welcome Cover (Splash Screen) Logic
     const welcomeCover = document.getElementById('welcome-cover');
     const enterBtn = document.getElementById('enter-btn');
     
+    // iOS scroll block handler
+    const preventScroll = (e) => {
+        if (welcomeCover && !welcomeCover.classList.contains('dismissed')) {
+            e.preventDefault();
+        }
+    };
+
+    if (document.body.classList.contains('cover-active')) {
+        document.addEventListener('touchmove', preventScroll, { passive: false });
+    }
+
     const dismissCover = () => {
         if (welcomeCover) {
             welcomeCover.classList.add('dismissed');
+            // Completely hide from DOM layout after transition to prevent blocking touch events
+            setTimeout(() => {
+                welcomeCover.style.display = 'none';
+            }, 1200);
         }
         document.body.classList.remove('cover-active');
+        document.removeEventListener('touchmove', preventScroll);
     };
 
     if (welcomeCover && enterBtn) {
@@ -298,12 +313,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupFilter('courses-filters', 'courses-grid');
     setupFilter('awards-filters', 'awards-grid');
-
     // Mobile Hamburger Menu Toggle
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent immediate trigger of document click listener
             navLinks.classList.toggle('active');
             const iconSpan = menuToggle.querySelector('span');
             if (iconSpan) {
@@ -320,6 +335,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     iconSpan.innerText = '☰';
                 }
             });
+        });
+
+        // Close menu when clicking outside of it
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(e.target) && 
+                !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+                const iconSpan = menuToggle.querySelector('span');
+                if (iconSpan) {
+                    iconSpan.innerText = '☰';
+                }
+            }
         });
     }
 });
