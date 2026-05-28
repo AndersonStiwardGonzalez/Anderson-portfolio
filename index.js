@@ -5,15 +5,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const savedTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', savedTheme);
-
     // Welcome Cover (Splash Screen) Logic
     const welcomeCover = document.getElementById('welcome-cover');
     const enterBtn = document.getElementById('enter-btn');
-    if (welcomeCover && enterBtn) {
-        enterBtn.addEventListener('click', () => {
+    
+    const dismissCover = () => {
+        if (welcomeCover) {
             welcomeCover.classList.add('dismissed');
-            document.body.classList.remove('cover-active');
-        });
+        }
+        document.body.classList.remove('cover-active');
+    };
+
+    if (welcomeCover && enterBtn) {
+        enterBtn.addEventListener('click', dismissCover);
+
+        const handleKeyPress = (e) => {
+            if (welcomeCover && !welcomeCover.classList.contains('dismissed')) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dismissCover();
+                    window.removeEventListener('keydown', handleKeyPress);
+                }
+            }
+        };
+        window.addEventListener('keydown', handleKeyPress);
     }
 
     themeBtn.addEventListener('click', () => {
