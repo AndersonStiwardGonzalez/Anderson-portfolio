@@ -50,6 +50,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { duration: 500, fill: "forwards" });
     });
 
+    const addHoverClass = () => {
+        dot.classList.add('cursor-hover');
+        outline.classList.add('cursor-hover');
+    };
+
+    const removeHoverClass = () => {
+        dot.classList.remove('cursor-hover');
+        outline.classList.remove('cursor-hover');
+    };
+
+    document.querySelectorAll('a, button, .btn, .control-btn, .ref-card, .exp-card, .course-item, .award-card').forEach(el => {
+        el.addEventListener('mouseenter', addHoverClass);
+        el.addEventListener('mouseleave', removeHoverClass);
+    });
+
     // Intersection Observer for scroll animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
