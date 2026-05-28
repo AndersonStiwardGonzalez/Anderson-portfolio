@@ -6,6 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     html.setAttribute('data-theme', savedTheme);
 
+    // Welcome Cover (Splash Screen) Logic
+    const welcomeCover = document.getElementById('welcome-cover');
+    const enterBtn = document.getElementById('enter-btn');
+    if (welcomeCover && enterBtn) {
+        enterBtn.addEventListener('click', () => {
+            welcomeCover.classList.add('dismissed');
+            document.body.classList.remove('cover-active');
+        });
+    }
+
     themeBtn.addEventListener('click', () => {
         const currentTheme = html.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';

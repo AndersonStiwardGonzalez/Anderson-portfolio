@@ -16,7 +16,44 @@
     <script src="index.js" defer></script>
 </head>
 
-<body>
+<body class="cover-active">
+    <!-- Welcome Cover (Splash Screen) -->
+    <div id="welcome-cover">
+        <div class="cover-bg-particles"></div>
+        <div class="cover-content">
+            <!-- Animated Double Helix Logo -->
+            <div class="dna-graphic">
+                <div class="dna-strand strand-a">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <div class="dna-strand strand-b">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+            
+            <h1 class="cover-title">Anderson Stiward González Rivera</h1>
+            <p class="cover-subtitle" 
+               data-en="Biotechnology & Bioinformatics Portfolio" 
+               data-es="Portafolio de Biotecnología y Bioinformática">
+               Portafolio de Biotecnología y Bioinformática
+            </p>
+            
+            <button id="enter-btn" class="btn btn-primary" 
+                    data-en="Enter" 
+                    data-es="Entrar">
+                    Entrar
+            </button>
+        </div>
+    </div>
+
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="nav-logo">ASGR</a>
